@@ -1,7 +1,7 @@
 {
   "name": "insta-youtube",
   "version": "1.0.0",
-  "private": true,
+  "author": "Hazem Sabry",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
