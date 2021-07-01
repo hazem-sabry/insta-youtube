@@ -34,10 +34,7 @@ export default {
       src: '@/plugins/vee-validate',
       ssr: false,
     },
-    {
-      src: '@/plugins/api',
-      ssr: false,
-    },
+    '@/plugins/api',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
