@@ -1,7 +1,7 @@
 export const state = () => ({
   env: {
     API_URL: null,
-    APP_URL: null,
+    API_KEY: null,
   },
 })
 
