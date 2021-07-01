@@ -19,7 +19,7 @@ export default function ApiPlugin({ $config, store }, inject) {
     let body
     if (method.toLowerCase() === 'get') {
       // Stringify the URL to a qs.
-      url = `${url}?${qs.stringify(payload)}`
+      url = `${url}&${qs.stringify(payload)}&key=${store.state.env.API_KEY}`
     } else {
       body = normalizePayload({ payload })
     }
@@ -40,9 +40,6 @@ export default function ApiPlugin({ $config, store }, inject) {
       headers: {
         ...normalizeContentType(payload),
         accept: 'application/json',
-        authorization: store.state.auth.token
-          ? `Bearer oauth2-${store.state.auth.token}`
-          : undefined,
       },
       method,
       body,
@@ -63,18 +60,10 @@ export default function ApiPlugin({ $config, store }, inject) {
 }
 
 function normalizePayload({ payload }) {
-  if (payload instanceof FormData) {
-    return payload
-  }
-
   const data = { ...payload }
   return JSON.stringify(data)
 }
 
 function normalizeContentType(payload) {
-  if (!(payload instanceof FormData)) {
-    return { 'content-type': 'application/json' }
-  }
-
-  return {}
+  return { 'content-type': 'application/json' }
 }
