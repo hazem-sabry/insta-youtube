@@ -6,16 +6,18 @@ export const state = () => ({
     type: 'video,playlist,channel',
     pageToken: null,
     publishedAfter: null,
+    fields: 'items,nextPageToken,pageInfo',
   },
 })
 
 export const getters = {
-  order: ({ state }) => state.filters.order,
-  maxResults: ({ state }) => state.filters.maxResults,
-  query: ({ state }) => state.filters.query,
-  type: ({ state }) => state.filters.type,
-  pageToken: ({ state }) => state.filters.pageToken,
-  publishedAfter: ({ state }) => state.filters.publishedAfter,
+  order: (state) => state.filters.order,
+  maxResults: (state) => state.filters.maxResults,
+  query: (state) => state.filters.query,
+  type: (state) => state.filters.type,
+  pageToken: (state) => state.filters.pageToken,
+  publishedAfter: (state) => state.filters.publishedAfter,
+  fields: (state) => state.filters.fields,
 }
 
 export const mutations = {
