@@ -1,10 +1,10 @@
 export const state = () => ({
   filters: {
     order: 'relevance',
-    maxResults: 10,
+    maxResults: 15,
     query: null,
     type: 'video,playlist,channel',
-    pageToken: null,
+    nextPageToken: null,
     publishedAfter: null,
     fields: 'items,nextPageToken,pageInfo',
   },
@@ -15,33 +15,43 @@ export const getters = {
   maxResults: (state) => state.filters.maxResults,
   query: (state) => state.filters.query,
   type: (state) => state.filters.type,
-  pageToken: (state) => state.filters.pageToken,
+  nextPageToken: (state) => state.filters.nextPageToken,
   publishedAfter: (state) => state.filters.publishedAfter,
   fields: (state) => state.filters.fields,
 }
 
 export const mutations = {
-  SET_TYPE(type) {
-    if (type === null) {
-      state.type = 'video,playlist,channel'
+  SET_QUERY(state, query) {
+    state.filters.query = query
+  },
+  SET_TYPE(state, type) {
+    if (type === 'null') {
+      state.filters.type = 'video,playlist,channel'
       return
     }
 
-    state.type = type
+    state.filters.type = type
   },
-  SET_ORDER(order) {
-    if (order === null) {
-      state.order = 'relevance'
+  SET_ORDER(state, order) {
+    if (order === 'null') {
+      state.filters.order = 'relevance'
       return
     }
 
-    state.order = order
+    state.filters.order = order
   },
-  SET_UPLOADED_DATE(date) {
-    if (date === null) {
-      state.publishedAfter = null
+  SET_UPLOADED_DATE(state, date) {
+    if (date === 'null') {
+      state.filters.publishedAfter = null
       return
     }
-    state.publishedAfter = date
+    state.filters.publishedAfter = date
+  },
+  SET_NEXT_PAGE_TOKEN(state, token) {
+    if (token === 'null') {
+      state.filters.nextPageToken = null
+      return
+    }
+    state.filters.nextPageToken = token
   },
 }
