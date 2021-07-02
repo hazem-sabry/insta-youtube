@@ -23,10 +23,26 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#f00' },
+  loading: {
+    color: '#e74c3c',
+    background: 'white',
+  },
+
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
+    '@nuxtjs/svg-sprite',
+    '@nuxtjs/style-resources',
+  ],
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/css/main'],
+
+  // You will have to add this new object if it doesn't exist already
+  styleResources: {
+    scss: ['@/assets/css/*.scss'],
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -34,6 +50,7 @@ export default {
       src: '@/plugins/vee-validate',
       ssr: false,
     },
+    '@/plugins/filters',
     '@/plugins/api',
   ],
 
@@ -46,13 +63,6 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-    '@nuxtjs/svg-sprite',
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
