@@ -1,15 +1,26 @@
 <template>
   <div class="container">
-    <h1>Instabug Youtube &#9829;</h1>
+    <template v-if="!items.length">
+      <NoResultsFound />
+    </template>
+    <template v-else>
+      <Filters />
+    </template>
   </div>
 </template>
 
-<style lang="scss">
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'InstaYoutube',
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapGetters({
+      items: 'listing/items',
+    }),
+  },
 }
-</style>
+</script>
