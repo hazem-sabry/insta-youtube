@@ -89,14 +89,17 @@
         </div>
       </div>
     </div>
+    <Spinner v-if="loading" class="w-md h-md" />
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Spinner from './Spinner.vue'
 
 export default {
   name: 'Filters',
+  components: { Spinner },
   data() {
     return {
       type: null,
@@ -109,6 +112,7 @@ export default {
   computed: {
     ...mapGetters({
       total: 'listing/total',
+      loading: 'loading',
     }),
     today() {
       const start = new Date()
@@ -228,6 +232,7 @@ export default {
   position: relative;
 
   &__wrapper {
+    margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
   }

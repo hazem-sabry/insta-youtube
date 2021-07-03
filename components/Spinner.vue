@@ -13,6 +13,7 @@ export default {
   display: block;
   max-width: 60px;
   max-height: 60px;
+  margin-inline: auto;
   border-radius: 2em;
   border-color: transparent transparent currentColor currentColor;
   border-style: solid;
