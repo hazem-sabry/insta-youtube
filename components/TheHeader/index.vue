@@ -10,7 +10,7 @@
       <QuickSearch
         v-if="search"
         class="Header__search"
-        @close="search = false"
+        @close="closeQuickSearch"
       />
       <button class="Header__toggle" @click="search = !search">
         <svg-icon name="magnify-white" class="w-sm h-sm" />
@@ -37,6 +37,19 @@ export default {
     ...mapGetters({
       query: 'filters/query',
     }),
+  },
+  mounted() {
+    this.search = window.innerWidth >= 768
+    window.onresize = () => {
+      this.search = window.innerWidth >= 768
+    }
+  },
+  methods: {
+    closeQuickSearch() {
+      if (window.innerWidth >= 768) return
+
+      this.search = false
+    },
   },
 }
 </script>

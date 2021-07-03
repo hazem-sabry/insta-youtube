@@ -36,6 +36,8 @@ export const actions = {
     const publishedAfter = getters['filters/publishedAfter']
     const fields = getters['filters/fields']
 
+    commit('listing/SET_SEARCHING_STATE', true)
+
     const payload = {
       q,
       type,

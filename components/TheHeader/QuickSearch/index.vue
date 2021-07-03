@@ -84,7 +84,10 @@ export default {
           'listing/SET_RESULTS_PER_PAGE',
           pageInfo.resultsPerPage
         )
-        this.$store.commit('listing/SET_TOTAL', pageInfo.totalResults)
+        this.$store.commit(
+          'listing/SET_TOTAL',
+          pageInfo.totalResults.toLocaleString()
+        )
         this.$emit('close')
       } catch (error) {
         // eslint-disable-next-line no-console

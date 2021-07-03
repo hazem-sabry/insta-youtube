@@ -1,10 +1,10 @@
 <template>
   <div class="container">
+    <template v-if="items.length || searching">
+      <Filters />
+    </template>
     <template v-if="!items.length">
       <NoResultsFound />
-    </template>
-    <template v-else>
-      <Filters />
     </template>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
   computed: {
     ...mapGetters({
       items: 'listing/items',
+      searching: 'listing/searching',
     }),
   },
 }

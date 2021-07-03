@@ -2,12 +2,14 @@ export const state = () => ({
   listItems: [],
   resultsPerPage: null,
   totalResults: null,
+  isSearching: false,
 })
 
 export const getters = {
   items: (state) => state.listItems,
   results: (state) => state.resultsPerPage,
   total: (state) => state.totalResults,
+  searching: (state) => state.isSearching,
 }
 
 export const mutations = {
@@ -36,5 +38,8 @@ export const mutations = {
     }
 
     state.totalResults = count
+  },
+  SET_SEARCHING_STATE(state, status) {
+    state.isSearching = status
   },
 }

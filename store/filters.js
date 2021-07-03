@@ -33,7 +33,7 @@ export const mutations = {
     state.filters.type = type
   },
   SET_ORDER(state, order) {
-    if (order === 'null') {
+    if (order === null) {
       state.filters.order = 'relevance'
       return
     }
