@@ -5,7 +5,7 @@
         <svg-icon name="logo" class="Header__icon Header__icon--colorful" />
         <svg-icon name="logo-white" class="Header__icon" />
         <b>YouTube</b>
-        <span>{{ query | limitChars }}</span>
+        <span>{{ query | limit }}</span>
       </nuxt-link>
       <QuickSearch
         v-if="search"

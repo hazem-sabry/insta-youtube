@@ -6,6 +6,7 @@
     <template v-if="!items.length">
       <NoResultsFound />
     </template>
+    <Listing :items="items" />
   </div>
 </template>
 

@@ -42,8 +42,12 @@ export default {
   },
   computed: {
     ...mapGetters({
+      query: 'filters/query',
       loading: 'loading',
     }),
+  },
+  mounted() {
+    this.q = this.query
   },
   methods: {
     async search() {

@@ -14,8 +14,6 @@ export const getters = {
 
 export const mutations = {
   SET_ITEMS(state, items) {
-    // eslint-disable-next-line no-console
-    console.log(items)
     if (!items.length) {
       state.listItems = []
       return
