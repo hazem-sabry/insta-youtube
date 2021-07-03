@@ -36,6 +36,7 @@ export const actions = {
     const publishedAfter = getters['filters/publishedAfter']
     const fields = getters['filters/fields']
 
+    commit('LOADING_STATE', true)
     commit('listing/SET_SEARCHING_STATE', true)
 
     const payload = {
@@ -65,10 +66,12 @@ export const actions = {
       commit('listing/SET_ITEMS', items.map(mapSearchItem))
       commit('filters/SET_NEXT_PAGE_TOKEN', nextPageTokenAPI)
       commit('listing/SET_RESULTS_PER_PAGE', pageInfo.resultsPerPage)
-      commit('listing/SET_TOTAL', pageInfo.totalResults)
+      commit('listing/SET_TOTAL', pageInfo.totalResults.toLocaleString())
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
+    } finally {
+      commit('LOADING_STATE', false)
     }
   },
 }

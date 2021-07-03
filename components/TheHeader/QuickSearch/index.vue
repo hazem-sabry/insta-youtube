@@ -32,8 +32,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { mapSearchItem } from '@/utils/maps'
-import { GET_SEARCH } from '@/api/endpoints'
 
 export default {
   name: 'SearchBox',
@@ -45,56 +43,24 @@ export default {
   computed: {
     ...mapGetters({
       loading: 'loading',
-      query: 'filters/query',
-      type: 'filters/type',
-      maxResults: 'filters/maxResults',
-      order: 'filters/order',
-      publishedAfter: 'filters/publishedAfter',
-      fields: 'filters/fields',
-      items: 'listing/items',
     }),
   },
   methods: {
     async search() {
-      const { q, type, maxResults, fields } = this
+      const { q } = this
+
+      // To avoid emty search box
       if (!q) return
 
       try {
-        this.$store.commit('LOADING_STATE', true)
-        this.$nuxt.$loading.start()
-
-        const { items, nextPageToken, pageInfo, error } = await this.$api(
-          GET_SEARCH,
-          {
-            q,
-            type,
-            maxResults,
-            fields,
-          }
-        )
-
-        if (error) {
-          throw new Error(error.message)
-        }
-
         this.$store.commit('filters/SET_QUERY', q)
-        this.$store.commit('listing/SET_ITEMS', items.map(mapSearchItem))
-        this.$store.commit('filters/SET_NEXT_PAGE_TOKEN', nextPageToken)
-        this.$store.commit(
-          'listing/SET_RESULTS_PER_PAGE',
-          pageInfo.resultsPerPage
-        )
-        this.$store.commit(
-          'listing/SET_TOTAL',
-          pageInfo.totalResults.toLocaleString()
-        )
+
+        await this.$store.dispatch('GET_ITEMS')
+
         this.$emit('close')
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error)
-      } finally {
-        this.$store.commit('LOADING_STATE', false)
-        this.$nuxt.$loading.finish()
       }
     },
   },
