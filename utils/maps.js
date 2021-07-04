@@ -48,59 +48,48 @@ class SearchItem {
     return this.pubdate.toDateString()
   }
 }
-// class Video {
-//   constructor(id, title, thumb, desc, thumbMedium, pubdate, stats) {
-//     this.id = id
-//     this.title = title
-//     this.thumb = thumb
-//     this.desc = desc
-//     this.thumb_md = thumbMedium
-//     this.stats = stats // index : 0 viewcount, 1 likes , 2 dislikes , 3 commentcount
-//     this.channelid = 0
-//     this.channeltitle = ''
-//     this.pubdate = new Date(pubdate)
-//   }
-
-//   get views() {
-//     return this.getViews()
-//   }
-
-//   get likes() {
-//     return this.getLikes()
-//   }
-
-//   get dislikes() {
-//     return this.getDislikes()
-//   }
-
-//   get comments() {
-//     return this.getComments()
-//   }
-
-//   getViews() {
-//     return this.stats[0].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-
-//   getLikes() {
-//     return this.stats[1].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-
-//   getDislikes() {
-//     return this.stats[2].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-
-//   getComments() {
-//     return this.stats[3].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-// }
+class Video {
+  constructor(
+    id,
+    title,
+    channelId,
+    channelTitle,
+    thumb,
+    thumbMedium,
+    desc,
+    pubdate,
+    duration,
+    dimension,
+    definition,
+    stats
+  ) {
+    this.id = id
+    this.title = title
+    this.channel = {
+      id: channelId,
+      title: channelTitle,
+    }
+    this.thumb = thumb
+    this.thumbMedium = thumbMedium
+    this.desc = desc
+    this.views = Number(stats[0]).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+    })
+    this.likes = Number(stats[1]).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+    })
+    this.dislikes = Number(stats[2]).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+    })
+    this.comments = Number(stats[3]).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+    })
+    this.pubdate = new Date(pubdate)
+    this.duration = duration
+    this.dimension = dimension
+    this.definition = definition
+  }
+}
 
 // class Channel {
 //   constructor(id, name, thumb, desc, pubDate, stats) {
@@ -173,6 +162,31 @@ export function mapSearchItem(apiItem) {
     apiItem.snippet.thumbnails.medium.url,
     apiItem.snippet.description,
     apiItem.snippet.publishedAt
+  )
+
+  return item
+}
+export function mapVideo(apiItem) {
+  const stats = []
+
+  stats.push(apiItem.statistics.viewCount)
+  stats.push(apiItem.statistics.likeCount)
+  stats.push(apiItem.statistics.dislikeCount)
+  stats.push(apiItem.statistics.commentCount)
+
+  const item = new Video(
+    apiItem.id,
+    apiItem.snippet.title,
+    apiItem.snippet.channelId,
+    apiItem.snippet.channelTitle,
+    apiItem.snippet.thumbnails.default.url,
+    apiItem.snippet.thumbnails.medium.url,
+    apiItem.snippet.description,
+    apiItem.snippet.publishedAt,
+    apiItem.contentDetails.duration,
+    apiItem.contentDetails.dimension,
+    apiItem.contentDetails.definition,
+    stats
   )
 
   return item
