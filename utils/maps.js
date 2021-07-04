@@ -91,55 +91,37 @@ class Video {
   }
 }
 
-// class Channel {
-//   constructor(id, name, thumb, desc, pubDate, stats) {
-//     this.id = id
-//     this.name = name
-//     this.desc = desc
-//     this.thumb = thumb
-//     this.pubdate = new Date(pubDate)
-//     this.stats = stats // "viewCount": "43008105", "subscriberCount": "103668", "videoCount": "123"
-//     this.videos = []
-//   }
-
-//   get pubdate() {
-//     return this.getPubdate()
-//   }
-
-//   get views() {
-//     return this.getViews()
-//   }
-
-//   get subscribers() {
-//     return this.getSubscribers()
-//   }
-
-//   get videos() {
-//     return this.getVideos()
-//   }
-
-//   getPubdate() {
-//     return this.pubDate.toDateString()
-//   }
-
-//   getViews() {
-//     return this.stats[0].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-
-//   getSubscribers() {
-//     return this.stats[1].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-
-//   getVideos() {
-//     return this.stats[2].value.toLocaleString('en-US', {
-//       minimumFractionDigits: 0,
-//     })
-//   }
-// }
+class Channel {
+  constructor(
+    id,
+    name,
+    thumb,
+    cover,
+    desc,
+    pubDate,
+    subscribers,
+    videos,
+    views
+  ) {
+    this.id = id
+    this.name = name
+    this.desc = desc
+    this.thumb = thumb
+    this.cover = cover
+    this.pubdate = new Date(pubDate)
+    this.statistics = {
+      subscribers: Number(subscribers).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+      }),
+      videos: Number(videos).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+      }),
+      views: Number(views).toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+      }),
+    }
+  }
+}
 
 // class PlayList {
 //   constructor(id, title, desc, pubdate, thumbnail) {
@@ -167,6 +149,7 @@ export function mapSearchItem(apiItem) {
 
   return item
 }
+
 export function mapVideo(apiItem) {
   const stats = []
 
@@ -188,6 +171,21 @@ export function mapVideo(apiItem) {
     apiItem.contentDetails.dimension,
     apiItem.contentDetails.definition,
     stats
+  )
+
+  return item
+}
+export function mapChannelDetails(apiItem) {
+  const item = new Channel(
+    apiItem.id,
+    apiItem.snippet.title,
+    apiItem.snippet.thumbnails.default.url,
+    apiItem.brandingSettings.image.bannerExternalUrl,
+    apiItem.snippet.description,
+    apiItem.snippet.publishedAt,
+    apiItem.statistics.subscriberCount,
+    apiItem.statistics.videoCount,
+    apiItem.statistics.viewCount
   )
 
   return item

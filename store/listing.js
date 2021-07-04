@@ -1,6 +1,7 @@
 export const state = () => ({
   listItems: [],
   relatedVideos: [],
+  channelVideos: [],
   resultsPerPage: null,
   totalResults: null,
   isSearching: false,
@@ -9,6 +10,7 @@ export const state = () => ({
 export const getters = {
   items: (state) => state.listItems,
   videos: (state) => state.relatedVideos,
+  channelVideos: (state) => state.channelVideos,
   results: (state) => state.resultsPerPage,
   total: (state) => state.totalResults,
   searching: (state) => state.isSearching,
@@ -30,6 +32,14 @@ export const mutations = {
     }
 
     state.relatedVideos = items
+  },
+  SET_CHANNEL_VIDEOS(state, items) {
+    if (!items.length) {
+      state.channelVideos = []
+      return
+    }
+
+    state.channelVideos = items
   },
   SET_RESULTS_PER_PAGE(state, count) {
     if (!count) {

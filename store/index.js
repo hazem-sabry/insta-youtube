@@ -1,4 +1,8 @@
-import { GET_SEARCH, GET_RELATED_VIDEOS_BY_ID } from '@/api/endpoints'
+import {
+  GET_SEARCH,
+  GET_RELATED_VIDEOS_BY_ID,
+  GET_CHANNEL_VIDEOS,
+} from '@/api/endpoints'
 import { mapSearchItem } from '@/utils/maps'
 
 export const state = () => ({
@@ -85,6 +89,24 @@ export const actions = {
       }
 
       commit('listing/SET_RELATED_VIDEOS', items.map(mapSearchItem))
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+    } finally {
+      commit('LOADING_STATE', false)
+    }
+  },
+  async GET_CHANNEL_VIDEOS({ commit }, channelId) {
+    try {
+      const { items, error } = await this.$api(GET_CHANNEL_VIDEOS, {
+        channelId,
+      })
+
+      if (error) {
+        throw new Error(error.message)
+      }
+
+      commit('listing/SET_CHANNEL_VIDEOS', items.map(mapSearchItem))
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
