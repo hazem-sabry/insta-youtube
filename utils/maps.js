@@ -153,6 +153,7 @@ class Video {
 
 // Maps functions
 export function mapSearchItem(apiItem) {
+  if (!apiItem.snippet) return
   const item = new SearchItem(
     apiItem.id,
     apiItem.snippet.title,

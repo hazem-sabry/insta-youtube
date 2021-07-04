@@ -65,7 +65,7 @@ export default {
   &__poster {
     position: relative;
     img {
-      width: 90px;
+      width: 160px;
       height: 90px;
       object-fit: cover;
 

@@ -15,6 +15,13 @@ Vue.filter('title', (value) => {
   return `${value.slice(0, 30)}...`
 })
 
+Vue.filter('description', (value) => {
+  if (!value) return
+  if (value.length <= 100) return value
+
+  return `${value.slice(0, 100)}...`
+})
+
 Vue.filter('date', (value) => {
   // Converts from Seconds timestamp to Milliseconds
   if (typeof value === 'number') {

@@ -2,20 +2,24 @@
   <section class="Listing">
     <div class="Listing__wrapper">
       <template v-for="item in items">
-        <VideoCard v-if="item.type === 'video'" :key="item.id" :video="item" />
+        <VideoCard
+          v-if="item && item.type === 'video'"
+          :key="item.id"
+          :video="item"
+        />
         <ChannelCard
-          v-else-if="item.type === 'channel'"
+          v-else-if="item && item.type === 'channel'"
           :key="item.id"
           :channel="item"
         />
         <PlaylistCard
-          v-else-if="item.type === 'playlist'"
+          v-else-if="item && item.type === 'playlist'"
           :key="item.id"
           :playlist="item"
         />
       </template>
       <button
-        v-if="items.length && nextPageToken"
+        v-if="items.length && nextPageToken && enableLoadMore"
         class="Listing__more"
         @click="loadMore"
       >
@@ -35,6 +39,10 @@ export default {
     items: {
       type: Array,
       required: true,
+    },
+    enableLoadMore: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

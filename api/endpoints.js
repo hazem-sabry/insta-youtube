@@ -9,3 +9,8 @@ export const GET_VIDEO = [
 ]
 
 export const GET_SEARCH = ['get', `/search?part=snippet`]
+
+export const GET_RELATED_VIDEOS_BY_ID = [
+  'get',
+  `/search?part=snippet&type=video`,
+]

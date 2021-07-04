@@ -21,7 +21,7 @@
         {{ video.channel.title }}
         <time>{{ video.pubdate | timeDistance }}</time>
       </nuxt-link>
-      <p>{{ video.desc }}</p>
+      <p>{{ video.desc | description }}</p>
     </div>
   </nuxt-link>
 </template>

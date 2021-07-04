@@ -1,5 +1,5 @@
 <template>
-  <section class="Video">
+  <section v-if="video" class="Video">
     <YTVideoPlayer :id="$route.params.id" />
     <div class="container">
       <div class="Video__details">
@@ -8,25 +8,27 @@
           <p>{{ video.views }} Views</p>
           <div class="Video__interactions">
             <button>
-              <span>{{ video.likes }}</span>
               <svg-icon name="like" class="w-sm h-sm" />
+              <span>{{ video.likes }}</span>
             </button>
             <button>
-              <span>{{ video.dislikes }}</span>
               <svg-icon name="dislike" class="w-sm h-sm" />
+              <span>{{ video.dislikes }}</span>
             </button>
             <button>
-              <span>{{ video.comments }}</span>
               <svg-icon name="comments" class="w-sm h-sm" />
+              <span>{{ video.comments }}</span>
             </button>
           </div>
         </div>
       </div>
+      <Listing :items="videos" :enable-load-more="false" />
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { GET_VIDEO } from '@/api/endpoints'
 import { mapVideo } from '@/utils/maps'
 
@@ -46,10 +48,17 @@ export default {
       })
 
       this.video = data.items.map(mapVideo)[0]
+
+      await this.$store.dispatch('GET_RELATED_VIDEOS', this.video.id)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
     }
+  },
+  computed: {
+    ...mapGetters({
+      videos: 'listing/videos',
+    }),
   },
 }
 </script>
@@ -87,7 +96,8 @@ export default {
       display: flex;
       align-items: center;
       span {
-        padding-right: 5px;
+        padding-left: 10px;
+        font-size: 1rem;
       }
     }
   }
