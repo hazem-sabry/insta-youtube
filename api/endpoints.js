@@ -9,7 +9,7 @@ export const GET_CHANNEL_VIDEOS = [
   `/search?channelId={channel_id_here}&part=snippet,id&order=date`,
 ]
 
-export const GET_PLAYLIST = ['get', `/channels?part=snippet`]
+export const GET_PLAYLIST = ['get', `/playlistItems?part=snippet`]
 
 export const GET_VIDEO = [
   'get',

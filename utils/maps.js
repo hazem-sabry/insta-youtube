@@ -123,15 +123,29 @@ class Channel {
   }
 }
 
-// class PlayList {
-//   constructor(id, title, desc, pubdate, thumbnail) {
-//     this.id = id
-//     this.title = title
-//     this.desc = desc
-//     this.pubdate = new Date(pubdate)
-//     this.thumb = thumbnail
-//   }
-// }
+class PlayList {
+  constructor(
+    id,
+    title,
+    desc,
+    channelId,
+    channelTitle,
+    pubdate,
+    thumbnail,
+    thumbnailMedium
+  ) {
+    this.id = id
+    this.title = title
+    this.desc = desc
+    this.pubdate = new Date(pubdate)
+    this.thumb = thumbnail
+    this.thumbMedium = thumbnailMedium
+    this.channel = {
+      id: channelId,
+      title: channelTitle,
+    }
+  }
+}
 
 // Maps functions
 export function mapSearchItem(apiItem) {
@@ -145,6 +159,20 @@ export function mapSearchItem(apiItem) {
     apiItem.snippet.thumbnails.medium.url,
     apiItem.snippet.description,
     apiItem.snippet.publishedAt
+  )
+
+  return item
+}
+export function mapPlaylistItem(apiItem) {
+  const item = new PlayList(
+    apiItem.snippet.resourceId.videoId,
+    apiItem.snippet.title,
+    apiItem.snippet.description,
+    apiItem.snippet.channelId,
+    apiItem.snippet.channelTitle,
+    apiItem.snippet.publishedAt,
+    apiItem.snippet.thumbnails.default.url,
+    apiItem.snippet.thumbnails.medium.url
   )
 
   return item
